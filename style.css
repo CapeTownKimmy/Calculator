@@ -1,43 +1,55 @@
+/* FONTS **------------------------** */
+/* font-family: 'JetBrains Mono', monospace; */
+    /* color: #142122; */
+
 /* COLOUR PALLETTE **------------------------** */
-/* Dark Pink : #8c4962
-Light Pink: #d9a3b6
-Off White: #ffffff
-Light Grey: #8c8c8c
-Dark Grey: #42424a */
+/* BACKGROUND: #5f9ea0
+CALC BODY: #d9a0af
+    border: #f2ced8
+SCREEN: #a1a1a1
+    border: #858585
+NUMBER BTNS: #dfb2be
+    border: #c48999
+SPECIAL BTNS: #72bcbe
+    border: cadetblue */
+
 
 /* GLOBAL STYLING **------------------------** */
 * {
     margin: 0;
     padding: 0;
+    -webkit-user-select: none; 
+    -ms-user-select: none; 
+    user-select: none; 
 }
 body {
     height: 100vh;
     width: 100vw;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    background-color: cadetblue;
+    background-color: #5f9ea0;
+    background-image: url(./images/numbers02.png);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
-/* #calcContainer {
-    border: 1px solid black;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 2rem;
-} */
-h1 {
-    border: 1px solid purple;
+/* h1 {
     text-align: center;
     margin: 3rem;
-}
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 4rem;
+    color: #142122;
+    text-shadow: 2px 2px whitesmoke;
+    background-color: #5f9ea0cc;
+    padding: 2rem;
+} */
 
 
 /* CALC STYLING **------------------------** */
 #calcBody {
-    background-color: #42424a;
+    background-color: #d9a0af;
+    border: 6px solid #f2ced8;
     border-radius: 30px;
-    box-shadow: 6px 6px 8px #252529;
+    box-shadow: 10px 10px 10px #395e5f;
     height: 50rem;
     width: 35rem;
     margin: 0 auto;
@@ -48,18 +60,21 @@ h1 {
     padding: 3rem;
 }
 #screen {
-    background-color: #8c8c8c;
-    border: 4px solid #727272;
+    background-color: #a3b4b4;
+    border: 4px solid #8a9797;
     border-radius: 15px;
     height: 8rem;
     width: 32rem;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    box-shadow: 2px 2px 2px #d9a0af;
 }
 .display {
-    border: 1px solid green;
-    font-size: 4rem;
+    /* border: 1px solid green; */
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 3.7rem;
+    color: #142122;
     margin: 0 1rem;
 }
 
@@ -67,20 +82,49 @@ h1 {
 .btnContainer {
     /* border: 1px solid red; */
     height: 70%;
-    width: 90%;
+    width: 93%;
     display: grid;
-    grid-template-columns: repeat(4, auto);
-    grid-template-rows: repeat(4, auto);
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
     gap: .8rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 .btn {
-    border: 4px solid #727272;
+    background-color: #dfb2be;
+    border: 4px solid #c48999;
     border-radius: 20px;
-    background-color: #8c8c8c;
+    font-family: 'JetBrains Mono', monospace;
     font-size: 3rem;
+    color: #142122;
+    scale: 1;
 }
-.pink {
-    background-color: #d9a3b6;
-    border: 4px solid #8c4962;
+.blue {
+    background-color: #72bcbe;
+    border: 4px solid cadetblue;
+}
+.btnBorder {
+    border: 4px solid #f2ced8;
+}
+.plusSpan {
+    grid-row-start: 4;
+    grid-row-end: -1;
+    grid-column-start: 4;
+}
+.smaller {
+    font-size: 2.5rem;
+}
+/* HOVER BUTTON STYLING **------------------------** */
+.btn:hover {
+    border: 5px solid #f8e3e9;
+    background-color: #f1c0cd;
+}
+.blue:hover {
+    background-color: #82d5d8;
+}
+.btnBorder:hover {
+    border: 5px solid #fcf0f3;
+}
+/* CLICK BUTTON STYLING **------------------------** */
+.btn:active {
+    scale: 1.03;
 }
