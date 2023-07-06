@@ -76,6 +76,9 @@ body {
     font-size: 3.7rem;
     color: #142122;
     margin: 0 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 /* BUTTON STYLING **------------------------** */
@@ -126,5 +129,11 @@ body {
 }
 /* CLICK BUTTON STYLING **------------------------** */
 .btn:active {
-    scale: 1.03;
+    scale: 0.97;
+}
+
+/* ISDEPRESSED STYLING JAVASCRIPT**------------------------** */
+.isDepressed {
+    background-color: #82d5d8;
+    border: 5px solid #fcf0f3;
 }

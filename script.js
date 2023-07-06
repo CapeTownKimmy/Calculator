@@ -1,19 +1,48 @@
 
-// ***---*** BUTTONS ***---***
+// ***---*** SELECTORS ***---***
 const screenDisplay = document.querySelector('.display');
 const btnContainer = document.querySelector('.btnContainer');
 
+// ***---*** BUTTONS ***---***
+const clearBtn = document.querySelector('.clearAll');
+const deleteBtn = document.querySelector('.delete');
+const operatorBtns = document.querySelectorAll('.operator');
+const numberBtns = document.querySelectorAll('.number');
 
-let num1;       // FIRST NUMBER ENTERED //
-let operator;   // OPERATOR ENTERED //
-let num2;       // SECOND NUMBER ENTERED //
-let result;     // RESULT OF CALCULATIONS //
+
+let num1 = [];        // FIRST NUMBER ENTERED //
+let operator = null;    // OPERATOR ENTERED //
+let num2 = [];        // SECOND NUMBER ENTERED //
+let result;             // RESULT OF CALCULATIONS //
 
 
 
-// console.log(btnContainer);
+console.log(numberBtns);
 
-defaultScreenDisplay();
+// defaultScreenDisplay();
+
+
+// ***---*** EVENT LISTENERS ***---***
+clearBtn.addEventListener('click', clearAll);
+deleteBtn.addEventListener('click', deleteDigit);
+
+operatorBtns.forEach(opBtn => {
+    opBtn.addEventListener('click', (event) => {
+        operator = event.target.textContent;
+    })
+})
+
+numberBtns.forEach(numBtn => {
+    numBtn.addEventListener('click', (event) => {
+        updateScreenDisplay(event);
+        num1.push(Number(event.target.textContent));
+        console.log(num1)
+    })
+})
+
+
+
+
 
 // ***---*** CALCULATION FUNCTIONS ***---***
 function add(num1, num2) {
@@ -53,7 +82,7 @@ function operate(num1, operator, num2) {
     }
 }
 
-// ***---*** UPDATE SCREEN DISPLAY ***---***
+// ***---*** DEFAULT DISPLAY ***---***
 function defaultScreenDisplay() {
     screenDisplay.textContent = '0';
 }
@@ -67,60 +96,85 @@ function clearAll() {
     }
     else {
         screenDisplay.textContent = '0';
+        num1 = [];       
+        operator = null;    
+        num2 = [];        
+        result;
     }
 }
 
 // ***---*** DELETE KEY FUNCTION ***---***
-function deleteKey() {
+function deleteDigit() {
     if(screenDisplay.textContent === '0') {
         return;
+    }
+    else if (screenDisplay.textContent.length === 1 || screenDisplay.textContent === '') {
+        defaultScreenDisplay();
     }
     else {
         screenDisplay.textContent = screenDisplay.textContent.slice(0, -1);
+        console.log(screenDisplay.textContent.length)
     }
 }
 
 
-// ***---*** BUTTON CLICKS ***---***
-btnContainer.addEventListener('click', (event) => {
-    const pressedBtn = event.target;
-    if(!pressedBtn.matches('.btn')) {
-        return;
-    }
-    if(pressedBtn.classList.contains('operator')) {
-        console.log('operator', pressedBtn.textContent);
-        // screenDisplay.textContent = pressedBtn.textContent;
-        updateScreenDisplay(pressedBtn)
-        return;
-    }
-    if(pressedBtn.classList.contains('decimal')) {
-        console.log('decimal', pressedBtn.textContent);
-        // screenDisplay.textContent = pressedBtn.textContent;
-        updateScreenDisplay(pressedBtn)
-        return;
-    }
-    if(pressedBtn.classList.contains('clearAll')) {
-        console.log('clearAll', pressedBtn.textContent);
-        clearAll();
-        return;
-    }
-    if(pressedBtn.classList.contains('delete')) {
-        console.log('delete', pressedBtn.textContent);
-        deleteKey();
-        return;
-    }
-    console.log('digit', pressedBtn.textContent)
-    // screenDisplay.textContent = pressedBtn.textContent;
-    updateScreenDisplay(pressedBtn)
-})
+// ***---*** BUTTON CLICK EVENTS ***---***
+// btnContainer.addEventListener('click', (event) => {
+//     const pressedBtn = event.target;
+//     if(!pressedBtn.matches('.btn')) {
+//         return;
+//     }
+//     if(pressedBtn.classList.contains('operator')) {
+//         console.log('operator', pressedBtn.textContent);
+//         // updateScreenDisplay(pressedBtn);
+//         isDepressed(pressedBtn);
+//         return;
+//     }
+//     if(pressedBtn.classList.contains('decimal')) {
+//         // console.log('decimal', pressedBtn.textContent);
+//         updateScreenDisplay(pressedBtn);
+//         return;
+//     }
+//     if(pressedBtn.classList.contains('clearAll')) {
+//         // console.log('clearAll', pressedBtn.textContent);
+//         clearAll();
+//         return;
+//     }
+//     if(pressedBtn.classList.contains('delete')) {
+//         // console.log('delete', pressedBtn.textContent);
+//         deleteKey();
+//         return;
+//     }
+//     // console.log('digit', pressedBtn.textContent)
+//     updateScreenDisplay(pressedBtn);
+// })
 
-function updateScreenDisplay(pressedBtn) {
+// ***---*** BUTTON CLICK EVENTS ***---***
+
+
+
+// ***---*** UPDATE SCREEN DISPLAY ***---***
+function updateScreenDisplay(event) {
     if(screenDisplay.textContent === '0') {
-        screenDisplay.textContent = pressedBtn.textContent;
+        screenDisplay.textContent = event.target.textContent;
     }
     else {
-        screenDisplay.textContent = screenDisplay.textContent + pressedBtn.textContent;
+        screenDisplay.textContent = screenDisplay.textContent + event.target.textContent;
     }
+    // console.log('on screen', screenDisplay.textContent);
 }
 
-// console.log(screenDisplay.textContent.length)
+// ***---*** ISDEPRESSED FUNCTION FOR OPERATOR SELECTED ***---***
+// function isDepressed(pressedBtn) {
+//     if(pressedBtn.classList.contains('isDepressed')) {
+//         pressedBtn.classList.remove('isDepressed');
+//     } else {
+//         pressedBtn.classList.add('isDepressed');
+//     }
+
+// }
+
+
+
+// ***---*** STORE NUM1 VARIABLE ***---***
+
