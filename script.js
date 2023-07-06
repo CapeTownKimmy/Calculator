@@ -9,17 +9,17 @@ const deleteBtn = document.querySelector('.delete');
 const operatorBtns = document.querySelectorAll('.operator');
 const numberBtns = document.querySelectorAll('.number');
 
-
-let num1 = [];        // FIRST NUMBER ENTERED //
+let sumArray = [];
+let firstNum = [];        // FIRST NUMBER ENTERED //
 let operator = null;    // OPERATOR ENTERED //
-let num2 = [];        // SECOND NUMBER ENTERED //
+let secondNum = [];        // SECOND NUMBER ENTERED //
 let result;             // RESULT OF CALCULATIONS //
 
 
 
-console.log(numberBtns);
+// console.log(numberBtns);
 
-// defaultScreenDisplay();
+defaultScreenDisplay();
 
 
 // ***---*** EVENT LISTENERS ***---***
@@ -28,20 +28,38 @@ deleteBtn.addEventListener('click', deleteDigit);
 
 operatorBtns.forEach(opBtn => {
     opBtn.addEventListener('click', (event) => {
-        operator = event.target.textContent;
+        operator = event.target;
+        updateScreenDisplay(event);
+        sumArrayCapture(event)
+        if(!event.target.classList.contains('operator')) {
+            return;
+        }
+        else {
+            operator = event.target.textContent;
+            console.log(operator);
+        }
     })
 })
 
 numberBtns.forEach(numBtn => {
     numBtn.addEventListener('click', (event) => {
         updateScreenDisplay(event);
-        num1.push(Number(event.target.textContent));
-        console.log(num1)
+        sumArrayCapture(event)
     })
 })
 
 
-
+// ***---*** CAPTURE DISPLAY SUM AND SEPARATE INTO VARIABLES ***---***
+function sumArrayCapture(event) {
+    sumArray.push(event.target.textContent);
+    let index = sumArray.indexOf('x');
+    let stringArr1 = sumArray.slice(0, index);
+    let stringArr2 = sumArray.slice((index + 1), -1);
+    firstNum = stringArr1.map(Number).join('');
+    secondNum = stringArr2.map(Number).join('');
+    console.log('firstNum', firstNum);
+    console.log('secondNum', secondNum);
+}
 
 
 // ***---*** CALCULATION FUNCTIONS ***---***
@@ -79,6 +97,8 @@ function operate(num1, operator, num2) {
         case '/':
             divide(num1, num2);
             break;
+        default:
+            break;    
     }
 }
 
@@ -96,6 +116,7 @@ function clearAll() {
     }
     else {
         screenDisplay.textContent = '0';
+        sumArray = [];
         num1 = [];       
         operator = null;    
         num2 = [];        
@@ -113,7 +134,7 @@ function deleteDigit() {
     }
     else {
         screenDisplay.textContent = screenDisplay.textContent.slice(0, -1);
-        console.log(screenDisplay.textContent.length)
+        sumArray.pop();
     }
 }
 
