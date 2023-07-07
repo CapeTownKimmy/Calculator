@@ -8,16 +8,14 @@ const clearBtn = document.querySelector('.clearAll');
 const deleteBtn = document.querySelector('.delete');
 const operatorBtns = document.querySelectorAll('.operator');
 const numberBtns = document.querySelectorAll('.number');
+const equalsBtn = document.querySelector('.equals');
 
 let sumArray = [];
-let firstNum = [];        // FIRST NUMBER ENTERED //
-let operator = null;    // OPERATOR ENTERED //
-let secondNum = [];        // SECOND NUMBER ENTERED //
-let result;             // RESULT OF CALCULATIONS //
+let firstNum;        
+let operator;          
+let secondNum;        
+// let result;             
 
-
-
-// console.log(numberBtns);
 
 defaultScreenDisplay();
 
@@ -25,19 +23,14 @@ defaultScreenDisplay();
 // ***---*** EVENT LISTENERS ***---***
 clearBtn.addEventListener('click', clearAll);
 deleteBtn.addEventListener('click', deleteDigit);
+equalsBtn.addEventListener('click', operate);
 
 operatorBtns.forEach(opBtn => {
     opBtn.addEventListener('click', (event) => {
-        operator = event.target;
+        // let operator = event.target.textContent;
+        // console.log('operator', operator);
         updateScreenDisplay(event);
-        sumArrayCapture(event)
-        if(!event.target.classList.contains('operator')) {
-            return;
-        }
-        else {
-            operator = event.target.textContent;
-            console.log(operator);
-        }
+        sumArrayCapture(event);
     })
 })
 
@@ -49,16 +42,35 @@ numberBtns.forEach(numBtn => {
 })
 
 
+
 // ***---*** CAPTURE DISPLAY SUM AND SEPARATE INTO VARIABLES ***---***
 function sumArrayCapture(event) {
-    sumArray.push(event.target.textContent);
-    let index = sumArray.indexOf('x');
-    let stringArr1 = sumArray.slice(0, index);
-    let stringArr2 = sumArray.slice((index + 1), -1);
-    firstNum = stringArr1.map(Number).join('');
-    secondNum = stringArr2.map(Number).join('');
+    sumArray.push(event.target.textContent); //Array from buttons clicked//
+
+    let index = sumArray.indexOf('x'); // find index of operator//
+
+    firstNum = sumArray.slice(0, index).map(Number).join(''); //slice off first number//
+    secondNum = sumArray.slice((index + 1)).map(Number).join(''); //slice off second number//
+    operator = sumArray.slice(index, (index +1));
+
     console.log('firstNum', firstNum);
     console.log('secondNum', secondNum);
+    console.log('operator', operator);
+}
+
+
+// ***---*** GET AND SET CALC INPUT INFO***---***
+function getFirstNum(arr, num) {
+    arr.slice(0, num).map(Number).join('');
+    return;
+}
+function getsecondNum(arr, num) {
+    arr.slice((num + 1)).map(Number).join('');
+    return;
+}
+function getOperator(arr, num) {
+    arr.slice(num, (num +1));
+    return;
 }
 
 
@@ -83,8 +95,8 @@ function divide(num1, num2) {
 
 
 // ***---*** OPERATE FUNCTION - WHICH FUNCTION TO RUN ***---***
-function operate(num1, operator, num2) {
-    switch (operator) {
+function operate(num1, sign, num2) {
+    switch (sign) {
         case '+':
             add(num1, num2);
             break;
@@ -117,9 +129,9 @@ function clearAll() {
     else {
         screenDisplay.textContent = '0';
         sumArray = [];
-        num1 = [];       
-        operator = null;    
-        num2 = [];        
+        firstNum;       
+        operator;    
+        secondNum;        
         result;
     }
 }
@@ -139,41 +151,6 @@ function deleteDigit() {
 }
 
 
-// ***---*** BUTTON CLICK EVENTS ***---***
-// btnContainer.addEventListener('click', (event) => {
-//     const pressedBtn = event.target;
-//     if(!pressedBtn.matches('.btn')) {
-//         return;
-//     }
-//     if(pressedBtn.classList.contains('operator')) {
-//         console.log('operator', pressedBtn.textContent);
-//         // updateScreenDisplay(pressedBtn);
-//         isDepressed(pressedBtn);
-//         return;
-//     }
-//     if(pressedBtn.classList.contains('decimal')) {
-//         // console.log('decimal', pressedBtn.textContent);
-//         updateScreenDisplay(pressedBtn);
-//         return;
-//     }
-//     if(pressedBtn.classList.contains('clearAll')) {
-//         // console.log('clearAll', pressedBtn.textContent);
-//         clearAll();
-//         return;
-//     }
-//     if(pressedBtn.classList.contains('delete')) {
-//         // console.log('delete', pressedBtn.textContent);
-//         deleteKey();
-//         return;
-//     }
-//     // console.log('digit', pressedBtn.textContent)
-//     updateScreenDisplay(pressedBtn);
-// })
-
-// ***---*** BUTTON CLICK EVENTS ***---***
-
-
-
 // ***---*** UPDATE SCREEN DISPLAY ***---***
 function updateScreenDisplay(event) {
     if(screenDisplay.textContent === '0') {
@@ -185,17 +162,4 @@ function updateScreenDisplay(event) {
     // console.log('on screen', screenDisplay.textContent);
 }
 
-// ***---*** ISDEPRESSED FUNCTION FOR OPERATOR SELECTED ***---***
-// function isDepressed(pressedBtn) {
-//     if(pressedBtn.classList.contains('isDepressed')) {
-//         pressedBtn.classList.remove('isDepressed');
-//     } else {
-//         pressedBtn.classList.add('isDepressed');
-//     }
-
-// }
-
-
-
-// ***---*** STORE NUM1 VARIABLE ***---***
 
