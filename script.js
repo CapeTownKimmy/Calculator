@@ -10,12 +10,18 @@ const operatorBtns = document.querySelectorAll('.operator');
 const numberBtns = document.querySelectorAll('.number');
 const equalsBtn = document.querySelector('.equals');
 
-let sumArray = [];
-let firstNum;        
-let operator;          
-let secondNum;        
-// let result;             
+// let sumArray = [];
+// let firstNum;        
+// let operator;          
+// let secondNum;        
+// // let result;             
 
+const sumParts = {
+    sumArray: [],
+    firstNum: null,
+    secondNum: null,
+    operator: null,
+};
 
 defaultScreenDisplay();
 
@@ -27,7 +33,7 @@ equalsBtn.addEventListener('click', operate);
 
 operatorBtns.forEach(opBtn => {
     opBtn.addEventListener('click', (event) => {
-        // let operator = event.target.textContent;
+        sumParts.operator = event.target.textContent;
         // console.log('operator', operator);
         updateScreenDisplay(event);
         sumArrayCapture(event);
@@ -45,17 +51,18 @@ numberBtns.forEach(numBtn => {
 
 // ***---*** CAPTURE DISPLAY SUM AND SEPARATE INTO VARIABLES ***---***
 function sumArrayCapture(event) {
-    sumArray.push(event.target.textContent); //Array from buttons clicked//
+    sumParts.sumArray.push(event.target.textContent); //Array from buttons clicked//
 
-    let index = sumArray.indexOf('x'); // find index of operator//
+    let index = sumParts.sumArray.indexOf('x'); // find index of operator//
 
-    firstNum = sumArray.slice(0, index).map(Number).join(''); //slice off first number//
-    secondNum = sumArray.slice((index + 1)).map(Number).join(''); //slice off second number//
-    operator = sumArray.slice(index, (index +1));
+    firstNum = sumParts.sumArray.slice(0, index).map(Number).join(''); //slice off first number//
+    secondNum = sumParts.sumArray.slice((index + 1)).map(Number).join(''); //slice off second number//
+    operator = sumParts.sumArray.slice(index, (index +1));
 
-    console.log('firstNum', firstNum);
-    console.log('secondNum', secondNum);
-    console.log('operator', operator);
+    console.log(sumParts);
+    // console.log('firstNum', firstNum);
+    // console.log('secondNum', secondNum);
+    // console.log('operator', operator);
 }
 
 
