@@ -67,26 +67,32 @@ body {
     /* border: 1px solid blue; */
     font-family: 'JetBrains Mono', monospace;
     font-size: 2rem;
+    height: 4rem;
+    width: 30rem;
     color: #142122;
     margin: 0 1rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
-    word-wrap: break-word;
-    word-break: break-all;
     margin-top: .3rem;
 }
-.display {
+.currentDisplay {
     /* border: 1px solid green; */
     font-family: 'JetBrains Mono', monospace;
     font-size: 3.7rem;
+    height: 4rem;
+    width: 30rem;
     color: #142122;
     margin: 0 1rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
-    word-wrap: break-word;
-    word-break: break-all;
 }
 
 /* BUTTON STYLING **------------------------** */

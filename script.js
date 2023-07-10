@@ -4,8 +4,7 @@ const calculator = {
     firstOperand: null,
     secondOperand: null,
     waitingForSecondOperand: false,
-    operator: null,
-    
+    operator: null, 
 }
 
 // ***---*** SELECTORS ***---***
@@ -19,15 +18,6 @@ const numberBtns = document.querySelectorAll('[data-number]');
 const equalsBtn = document.querySelector('[data-equals]');
 
 
-
-// ***---*** DEFAULT DISPLAY ***---***
-// defaultScreenDisplay()
-
-// function defaultScreenDisplay() {
-//     displayCurrent.textContent = '0';
-//     displayPrevious.textContent = '';
-// }
-
 // ***---*** UPDATE SCREEN DISPLAY ***---***
 function updateDisplay() {
     const displayCurrent = document.querySelector('[data-current-operand]');
@@ -38,142 +28,134 @@ function updateDisplay() {
 updateDisplay()
 
 
-// ***---*** EVENT LISTENERS ***---***
-// clearBtn.addEventListener('click', clearAll);
-// deleteBtn.addEventListener('click', deleteDigit);
-// equalsBtn.addEventListener('click', operate);
+// ***---*** EVENT LISTENERS MOUSE***---***
+clearBtn.addEventListener('click', () => {
+    clearAll();
+    updateDisplay();
+});
+deleteBtn.addEventListener('click', () => {
+    deleteDigit();
+    updateDisplay();
+});
 
-// operatorBtns.forEach(opBtn => {
-//     opBtn.addEventListener('click', (event) => {
-//         sumParts.operator = event.target.textContent;
-//         // console.log('operator', operator);
-//         updateScreenDisplay(event);
-//         sumArrayCapture(event);
-//     })
-// })
-
-// numberBtns.forEach(numBtn => {
-//     numBtn.addEventListener('click', (event) => {
-//         updateScreenDisplay(event);
-//         // sumArrayCapture(event)
-//     })
-// })
-
-
-
-
-
-
+//OPERATORS//
+operatorBtns.forEach(opBtn => {
+    opBtn.addEventListener('click', (event) => {
+        clickedOperator(event.target.textContent);
+        updateDisplay();
+    })
+})
+//NUMBERS//
+numberBtns.forEach(numBtn => {
+    numBtn.addEventListener('click', (event) => {
+        inputDigit(event.target.textContent);
+        updateDisplay();
+    })
+})
 
 
 
 
-// ***---*** CAPTURE DISPLAY SUM AND SEPARATE INTO VARIABLES ***---***
-// function sumArrayCapture(event) {
-//     sumParts.sumArray.push(event.target.textContent); //Array from buttons clicked//
-
-//     let index = sumParts.sumArray.indexOf('x'); // find index of operator//
-
-//     firstNum = sumParts.sumArray.slice(0, index).map(Number).join(''); //slice off first number//
-//     secondNum = sumParts.sumArray.slice((index + 1)).map(Number).join(''); //slice off second number//
-//     operator = sumParts.sumArray.slice(index, (index +1));
-
-//     console.log(sumParts);
-    // console.log('firstNum', firstNum);
-    // console.log('secondNum', secondNum);
-    // console.log('operator', operator);
-// }
 
 
-// ***---*** GET AND SET CALC INPUT INFO***---***
-// function getFirstNum(arr, num) {
-//     arr.slice(0, num).map(Number).join('');
-//     return;
-// }
-// function getsecondNum(arr, num) {
-//     arr.slice((num + 1)).map(Number).join('');
-//     return;
-// }
-// function getOperator(arr, num) {
-//     arr.slice(num, (num +1));
-//     return;
-// }
 
 
-// ***---*** CALCULATION FUNCTIONS ***---***
-// function add(num1, num2) {
-//     result = num1 + num2;
-//     return result;
-// }
-// function subtract(num1, num2) {
-//     result = num1 - num2;
-//     return result;
-// }
-// function multiply(num1, num2) {
-//     result = num1 * num2;
-//     return result;
-// }
-// function divide(num1, num2) {
-//     result = num1 / num2;
-//     return result;
-// }
+// ***---*** CAPTURE INPUT & DISPLAY ON SCREEN ***---***
+function inputDigit(digit) {
+    const currentDisplayValue = calculator.currentDisplayValue;
+    const waitingForSecondOperand = calculator.waitingForSecondOperand;
+    if((currentDisplayValue === '0' && digit !== '.')|| waitingForSecondOperand === true) {        
+        calculator.currentDisplayValue = digit;
+        calculator.waitingForSecondOperand = false;
+        calculator.prevDisplayValue = digit;
+    } 
+    else if (currentDisplayValue.includes('.') && digit === '.') { return
+    }
+    else {
+        calculator.currentDisplayValue = currentDisplayValue + digit;
+        calculator.prevDisplayValue = currentDisplayValue + digit;
+    }
+    // console.log(calculator);
+}
+
+
+// ***---*** STORE FIRST OPERAND AND OPERATOR ***---***
+function clickedOperator(nextOperator) {
+    const firstOperand = calculator.firstOperand;
+    const currentDisplayValue = calculator.currentDisplayValue;
+    const operator = calculator.operator;
+    const inputValue = parseFloat(currentDisplayValue);
+    if (operator && calculator.waitingForSecondOperand) {
+        calculator.operator = nextOperator;
+        // console.log(calculator);
+        return;
+    }
+    if (firstOperand === null && !isNaN(inputValue)) {
+        calculator.firstOperand = inputValue;
+    } 
+    else if (operator) {
+        const result = operate(firstOperand, operator, inputValue);
+        calculator.secondOperand = inputValue;
+        if (operator === '/' && inputValue === 0) {
+            calculator.prevDisplayValue = `Nope, can't do that...`;
+            calculator.currentDisplayValue = ``;
+        } 
+        else {
+        calculator.currentDisplayValue = `${parseFloat(result.toFixed(7))}`;
+        calculator.firstOperand = result;
+        }
+    }
+    calculator.waitingForSecondOperand = true;
+    calculator.operator = nextOperator;
+    // console.log(calculator);
+}
+
 
 
 
 // ***---*** OPERATE FUNCTION - WHICH FUNCTION TO RUN ***---***
-// function operate(num1, sign, num2) {
-//     switch (sign) {
-//         case '+':
-//             add(num1, num2);
-//             break;
-//         case '-':
-//             subtract(num1, num2);
-//             break;
-//         case '*':
-//             multiply(num1, num2);
-//             break;
-//         case '/':
-//             divide(num1, num2);
-//             break;
-//         default:
-//             break;    
-//     }
-// }
-
-
+function operate(firstOperand, operator, secondOperand) {
+    if (operator === '+') {
+        calculator.prevDisplayValue = `${firstOperand + ' ' + operator + ' ' + secondOperand}`
+        return firstOperand + secondOperand;
+    }
+    else if (operator === '-') {
+        calculator.prevDisplayValue = `${firstOperand + ' ' + operator + ' ' + secondOperand}`
+        return firstOperand - secondOperand;
+    }
+    else if (operator === 'x') {
+        calculator.prevDisplayValue = `${firstOperand + ' ' + operator + ' ' + secondOperand}`
+        return firstOperand * secondOperand;
+    }
+    else if (operator === '/') {
+        calculator.prevDisplayValue = `${firstOperand + ' ' + operator + ' ' + secondOperand}`
+        return firstOperand / secondOperand;
+    }
+    return secondOperand;
+}
 
 
 
 // ***---*** CLEAR ALL FUNCTION ***---***
-// function clearAll() {
-//     if(screenDisplay.textContent === '0') {
-//         return;
-//     }
-//     else {
-//         screenDisplay.textContent = '0';
-//         sumArray = [];
-//         firstNum;       
-//         operator;    
-//         secondNum;        
-//         result;
-//     }
-// }
+function clearAll() {
+    calculator.currentDisplayValue = '0';
+    calculator.prevDisplayValue = '';
+    calculator.firstOperand = null;
+    calculator.secondOperand = null;
+    calculator.waitingForSecondOperand = false;
+    calculator.operator = null; 
+}
 
 // ***---*** DELETE KEY FUNCTION ***---***
-// function deleteDigit() {
-//     if(screenDisplay.textContent === '0') {
-//         return;
-//     }
-//     else if (screenDisplay.textContent.length === 1 || screenDisplay.textContent === '') {
-//         defaultScreenDisplay();
-//     }
-//     else {
-//         screenDisplay.textContent = screenDisplay.textContent.slice(0, -1);
-//         sumArray.pop();
-//     }
-// }
-
-
-
-
-
+function deleteDigit() {
+    if(calculator.currentDisplayValue === '0') {
+        return;
+    }
+    else if (calculator.currentDisplayValue.length === 1 || calculator.currentDisplayValue === '') {
+        clearAll();
+    }
+    else {
+        calculator.currentDisplayValue = calculator.currentDisplayValue.slice(0, -1);
+        calculator.prevDisplayValue = calculator.prevDisplayValue.slice(0, -1);
+    }
+}
