@@ -1,0 +1,154 @@
+/* FONTS **------------------------** */
+/* font-family: 'JetBrains Mono', monospace; */
+    /* color: #142122; */
+
+/* COLOUR PALLETTE **------------------------** */
+/* BACKGROUND: #5f9ea0
+CALC BODY: #d9a0af
+    border: #f2ced8
+SCREEN: #a1a1a1
+    border: #858585
+NUMBER BTNS: #dfb2be
+    border: #c48999
+SPECIAL BTNS: #72bcbe
+    border: cadetblue */
+
+
+/* GLOBAL STYLING **------------------------** */
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-user-select: none; 
+    -ms-user-select: none; 
+    user-select: none; 
+}
+body {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    background-color: #5f9ea0;
+    background-image: url(./images/numbers02.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
+/* CALC STYLING **------------------------** */
+#calcBody {
+    background-color: #d9a0af;
+    border: 6px solid #f2ced8;
+    border-radius: 30px;
+    /* box-shadow: 10px 10px 10px #395e5f; */
+    box-shadow: 10px 10px 15px whitesmoke, -10px -10px 15px whitesmoke;
+    height: 50rem;
+    width: 35rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3rem;
+}
+#screen {
+    background-color: #a3b4b4;
+    border: 4px solid #8a9797;
+    border-radius: 15px;
+    height: 9rem;
+    width: 32rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    box-shadow: 2px 2px 2px #d9a0af;
+    margin-top: 1rem;
+}
+.previousDisplay {
+    /* border: 1px solid blue; */
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 2rem;
+    height: 4rem;
+    width: 30rem;
+    color: #142122;
+    margin: 0 1rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: .3rem;
+}
+.currentDisplay {
+    /* border: 1px solid green; */
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 3.7rem;
+    height: 4rem;
+    width: 30rem;
+    color: #142122;
+    margin: 0 1rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* BUTTON STYLING **------------------------** */
+.btnContainer {
+    /* border: 1px solid red; */
+    height: 70%;
+    width: 93%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: .8rem;
+    margin-bottom: 1rem;
+}
+.btn {
+    background-color: #dfb2be;
+    border: 4px solid #c48999;
+    border-radius: 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 3rem;
+    color: #142122;
+    scale: 1;
+}
+.blue {
+    background-color: #72bcbe;
+    border: 4px solid cadetblue;
+}
+
+.clearAll {
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+.equals {
+    grid-column-start: 3;
+    grid-column-end: -1;
+}
+.smaller {
+    font-size: 2.5rem;
+}
+/* HOVER BUTTON STYLING **------------------------** */
+.btn:hover {
+    border: 5px solid #f8e3e9;
+    background-color: #f1c0cd;
+}
+.blue:hover {
+    background-color: #82d5d8;
+}
+.btnBorder:hover {
+    border: 5px solid #fcf0f3;
+}
+/* CLICK BUTTON STYLING **------------------------** */
+.btn:active {
+    scale: 0.97;
+}
+
+/* ISDEPRESSED STYLING JAVASCRIPT**------------------------** */
+.isDepressed {
+    background-color: #82d5d8;
+    border: 5px solid #fcf0f3;
+}
