@@ -14,9 +14,9 @@ Click to [Calculate!](https://capetownkimmy.github.io/Colourful-Calculations/)
 
 * Interactive and colourful UI.
 * Mouse and keyboard support.
-* Can work with decimals and round them appropriately.
-* Clear All function for resetting.
-* Delete function to remove one digit at a time for small errors.
+* Works with decimals and round them appropriately.
+* *Clear All* function for resetting.
+* *Delete* function to remove one digit at a time for small errors.
 * A display message if a user tries to divide by 0.
 
 ---
