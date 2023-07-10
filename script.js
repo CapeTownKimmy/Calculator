@@ -54,10 +54,28 @@ numberBtns.forEach(numBtn => {
 })
 
 
+// ***---*** EVENT LISTENERS KEYBOARD***---***
+document.addEventListener('keydown', keyboardInput);
 
-
-
-
+function keyboardInput(event) {
+    let key = event.key;
+    if (key >= 0 && key <= 9 || key === '.') {
+        inputDigit(key);
+        updateDisplay();
+    }
+    if (key === '+' || key === '-' || key === '*' || key === '/' || key === '=' || key === 'Enter') {
+        clickedOperator(key);
+        updateDisplay();
+    }
+    if (key === 'Escape') {
+        clearAll();
+        updateDisplay();
+    }
+    if (key === 'Backspace') {
+        deleteDigit();
+        updateDisplay();
+    }
+}
 
 
 // ***---*** CAPTURE INPUT & DISPLAY ON SCREEN ***---***
@@ -123,12 +141,12 @@ function operate(firstOperand, operator, secondOperand) {
         calculator.prevDisplayValue = `${firstOperand + ' ' + operator + ' ' + secondOperand}`
         return firstOperand - secondOperand;
     }
-    else if (operator === 'x') {
-        calculator.prevDisplayValue = `${firstOperand + ' ' + operator + ' ' + secondOperand}`
+    else if (operator === '*') {
+        calculator.prevDisplayValue = `${firstOperand + ' ' + 'x' + ' ' + secondOperand}`
         return firstOperand * secondOperand;
     }
     else if (operator === '/') {
-        calculator.prevDisplayValue = `${firstOperand + ' ' + operator + ' ' + secondOperand}`
+        calculator.prevDisplayValue = `${firstOperand + ' ' + '÷' + ' ' + secondOperand}`
         return firstOperand / secondOperand;
     }
     return secondOperand;
