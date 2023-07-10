@@ -133,6 +133,7 @@ function clickedOperator(nextOperator) {
 
 // ***---*** OPERATE FUNCTION - WHICH FUNCTION TO RUN ***---***
 function operate(firstOperand, operator, secondOperand) {
+    console.log(operator)
     if (operator === '+') {
         calculator.prevDisplayValue = `${firstOperand + ' ' + operator + ' ' + secondOperand}`
         return firstOperand + secondOperand;
@@ -141,7 +142,8 @@ function operate(firstOperand, operator, secondOperand) {
         calculator.prevDisplayValue = `${firstOperand + ' ' + operator + ' ' + secondOperand}`
         return firstOperand - secondOperand;
     }
-    else if (operator === '*') {
+    else if (operator === '*' || operator === 'x') {
+        console.log(operator)
         calculator.prevDisplayValue = `${firstOperand + ' ' + 'x' + ' ' + secondOperand}`
         return firstOperand * secondOperand;
     }
